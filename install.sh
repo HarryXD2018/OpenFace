@@ -24,17 +24,17 @@ fi
 echo "Installing Essential dependencies..."
 
 # If we're not on 18.04
-sudo apt-get -y update
+apt-get -y update
 
 if [[ `lsb_release -rs` != "18.04" ]]
   then   
     echo "Adding ppa:ubuntu-toolchain-r/test apt-repository "
-    sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-    sudo apt-get -y update
+    add-apt-repository ppa:ubuntu-toolchain-r/test -y
+    apt-get -y update
 fi
 
-sudo apt-get -y install build-essential
-sudo apt-get -y install gcc-8 g++-8
+apt-get -y install build-essential
+apt-get -y install gcc-8 g++-8
 
 # Ubuntu 16.04 does not have newest CMake so need to build it manually
 if [[ `lsb_release -rs` < "18.04" ]]; then   
@@ -45,18 +45,18 @@ if [[ `lsb_release -rs` < "18.04" ]]; then
   cd cmake-3.10.1/
   ./bootstrap
   make -j4
-  sudo make install
+  make install
   cd ../..
-  sudo rm -r cmake_tmp
+  rm -r cmake_tmp
   export PATH=/usr/local/bin:$PATH
 else
-  sudo apt-get -y install cmake
+  apt-get -y install cmake
 fi
 
-sudo apt-get -y install zip
-sudo apt-get -y install libopenblas-dev liblapack-dev
-sudo apt-get -y install libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev
-sudo apt-get -y install libtbb2 libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev
+apt-get -y install zip
+apt-get -y install libopenblas-dev liblapack-dev
+apt-get -y install libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev
+apt-get -y install libtbb2 libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev
 echo "Essential dependencies installed."
 
 # OpenCV Dependency
@@ -69,10 +69,10 @@ cd build
 echo "Installing OpenCV..."
 cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_CUDA=OFF -D BUILD_SHARED_LIBS=OFF ..
 make -j4
-sudo make install
+make install
 cd ../..
 rm 4.1.0.zip
-sudo rm -r opencv-4.1.0
+rm -r opencv-4.1.0
 echo "OpenCV installed."
 
 # dlib dependecy
@@ -85,8 +85,8 @@ cd build;
 echo "Installing dlib"
 cmake ..;
 cmake --build . --config Release;
-sudo make install;
-sudo ldconfig;
+make install;
+ldconfig;
 cd ../..;    
 rm -r dlib-19.13.tar.bz2
 echo "dlib installed"
